@@ -49,4 +49,16 @@ public class PrimaryController {
         alerta.setContentText(msg);
         alerta.show();
     }
+
+    public void ordenarPorPreco() {
+        listaVeiculos.sort((o1, o2) -> Double.compare(o1.getPreco(), o2.getPreco()));
+        listView.getItems().clear();
+        listVIew.getItems().addAll(listaVeiculos)
+    }
+
+    public void ordenarPorAno() {
+        listaVeiculos.sort((o1, o2) -> Integer.compare(o1.getAno(), o2.getAno()));
+        listView.getItems().clear();
+        listVIew.getItems().addAll(listaVeiculos)
+    }
 }

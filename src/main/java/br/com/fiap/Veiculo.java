@@ -1,6 +1,6 @@
 package br.com.fiap;
 
-public class Veiculo {
+public class Veiculo implements Comparable {
     private String marca;
     private String modelo;
     private int ano;
