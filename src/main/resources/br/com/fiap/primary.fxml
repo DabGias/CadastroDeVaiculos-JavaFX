@@ -103,7 +103,9 @@
                <top>
                   <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <items>
-                      <Button mnemonicParsing="false" text="Listar Todos" />
+                        <Button mnemonicParsing="false" onAction="#mostrarTodos" text="Listar Todos" />
+                        <Button mnemonicParsing="false" onAction="#ordernarPorPreco" text="Listar por Preço" />
+                        <Button mnemonicParsing="false" onAction="#ordenarPorAno" text="Listar por Ano" />
                     </items>
                   </ToolBar>
                </top>

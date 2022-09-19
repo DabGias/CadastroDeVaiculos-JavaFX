@@ -1,6 +1,6 @@
-package br.com.fiap;
+package br.com.fiap.model;
 
-public class Veiculo implements Comparable {
+public class Veiculo implements Comparable<Veiculo> {
     private String marca;
     private String modelo;
     private int ano;
@@ -58,5 +58,10 @@ public class Veiculo implements Comparable {
     @Override
     public String toString() {
         return "Veiculo: ano = " + ano + ", marca = " + marca + ", modelo = " + modelo + ", placa = " + placa + ", preco = " + preco + "\n";
+    }
+
+    @Override
+    public int compareTo(Veiculo outro) {
+        return Integer.compare(this.ano, outro.getAno());
     }
 }
