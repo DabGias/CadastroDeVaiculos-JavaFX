@@ -6,10 +6,12 @@ import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
 import br.com.fiap.dao.VeiculoDao;
+import br.com.fiap.model.Cliente;
 import br.com.fiap.model.Veiculo;
 
 public class PrimaryController {
@@ -25,6 +27,15 @@ public class PrimaryController {
     private TextField txtFieldPlaca;
     @FXML 
     private ListView<Veiculo> listView;
+
+    @FXML
+    private TextField txtFieldClienteNome;
+    @FXML
+    private TextField txtFieldClienteEmail;
+    @FXML
+    private TextField txtFieldClienteTel;
+    @FXML
+    private TableView<Cliente> tbViewCliente;
 
     private VeiculoDao veiculoDao;
 

@@ -6,15 +6,18 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fiap.PrimaryController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.fiap.controller.PrimaryController">
   <tabs>
     <Tab text="Cadastro">
          <content>
@@ -104,12 +107,53 @@
                   <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <items>
                         <Button mnemonicParsing="false" onAction="#mostrarTodos" text="Listar Todos" />
-                        <Button mnemonicParsing="false" onAction="#ordernarPorPreco" text="Listar por Preço" />
+                        <Button mnemonicParsing="false" onAction="#ordenarPorPreco" text="Listar por Preço" />
                         <Button mnemonicParsing="false" onAction="#ordenarPorAno" text="Listar por Ano" />
                     </items>
                   </ToolBar>
                </top>
             </BorderPane>
          </content></Tab>
+      <Tab text="Cadastro">
+         <content>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <top>
+                  <FlowPane alignment="CENTER" prefHeight="109.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <TextField promptText="Nome">
+                           <FlowPane.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </FlowPane.margin>
+                        </TextField>
+                        <TextField promptText="Email">
+                           <FlowPane.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </FlowPane.margin>
+                        </TextField>
+                        <TextField promptText="Telefone">
+                           <FlowPane.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </FlowPane.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" text="Cadastrar">
+                           <FlowPane.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </FlowPane.margin>
+                        </Button>
+                     </children>
+                  </FlowPane>
+               </top>
+               <center>
+                  <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <columns>
+                      <TableColumn minWidth="100.0" prefWidth="200.0" text="Nome" />
+                      <TableColumn minWidth="100.0" prefWidth="200.0" text="Email" />
+                        <TableColumn minWidth="100.0" prefWidth="200.0" text="Tel." />
+                    </columns>
+                  </TableView>
+               </center>
+            </BorderPane>
+         </content>
+      </Tab>
   </tabs>
 </TabPane>
