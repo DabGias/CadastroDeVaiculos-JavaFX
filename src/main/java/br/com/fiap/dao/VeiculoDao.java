@@ -13,8 +13,8 @@ import br.com.fiap.model.Veiculo;
 
 public class VeiculoDao {
     private static final String url = "jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL";
-    private static final String user = "RM94419";
-    private static final String password = "131103";
+    private static final String user = "user";
+    private static final String password = "senha";
     private Connection con;
 
     public VeiculoDao() throws SQLException {
