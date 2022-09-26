@@ -1,28 +1,26 @@
 package br.com.fiap.dao;
 
+import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fiap.model.Veiculo;
+import br.com.fiap.util.ConnectionFactory;
 
 public class VeiculoDao {
-    private static final String url = "jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL";
-    private static final String user = "RM94419";
-    private static final String password = "131103";
-    private Connection con;
 
-    public VeiculoDao() throws SQLException {
-        con = DriverManager.getConnection(url, user, password);
+    public VeiculoDao() throws SQLException, IOException {
+        Connection con = ConnectionFactory.getConnection();
     }
 
-    public void inserir(Veiculo veiculo) throws SQLException {
-        con = DriverManager.getConnection(url, user, password);
+    public void inserir(Veiculo veiculo) throws SQLException, IOException {
+        Connection con = ConnectionFactory.getConnection();
         String sql = "INSERT INTO DDD_CONC_TB_VEICULOS (id, marca, modelo, ano, preco, placa)"
         + "VALUES (SEQ_VEICULOS.nextval, ?, ?, ?, ?, ?)";
         PreparedStatement stm = con.prepareStatement(sql);
@@ -33,6 +31,8 @@ public class VeiculoDao {
         stm.setString(5, veiculo.getPlaca());
 
         // ----- Uso com vulnerabilidade -----
+        // O cliente pode digitar "); DROP TABLE"
+
         // String sql = String.format("INSERT INTO DDD_CONC_TB_VEICULOS (id, marca, modelo, ano, preco, placa)"
         // + "VALUES (SEQ_VEICULOS.nextval, '%s', '%s', %d, %d, '%s')",
         //     veiculo.getMarca(),
@@ -46,8 +46,8 @@ public class VeiculoDao {
         con.close();
     }
 
-    public List<Veiculo> listarTodos() throws SQLException{
-        con = DriverManager.getConnection(url, user, password);
+    public List<Veiculo> listarTodos() throws SQLException, IOException{
+        Connection con = ConnectionFactory.getConnection();
         List<Veiculo> lista = new ArrayList<>();
         Statement stm = con.createStatement();
         String sql = "SELECT * FROM DDD_CONC_TB_VEICULOS";
@@ -69,8 +69,8 @@ public class VeiculoDao {
         return lista;
     }
     
-    public List<Veiculo> buscarPorMarca(String marca) throws SQLException{
-        con = DriverManager.getConnection(url, user, password);
+    public List<Veiculo> buscarPorMarca(String marca) throws SQLException, IOException{
+        Connection con = ConnectionFactory.getConnection();
         List<Veiculo> lista = new ArrayList<>();
         Statement stm = con.createStatement();
         String sql = "SELECT * FROM DDD_CONC_TB_VEICULOS WHERE marca='" + marca + "'";

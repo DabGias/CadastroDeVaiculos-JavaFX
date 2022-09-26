@@ -1,20 +1,27 @@
 package br.com.fiap.controller;
 
+import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 
+import br.com.fiap.dao.ClienteDao;
 import br.com.fiap.dao.VeiculoDao;
-import br.com.fiap.model.Cliente;
 import br.com.fiap.model.Veiculo;
+import br.com.fiap.model.Cliente;
 
-public class PrimaryController {
+public class PrimaryController implements Initializable {
     @FXML 
     private TextField txtFieldMarca;
     @FXML 
@@ -36,10 +43,16 @@ public class PrimaryController {
     private TextField txtFieldClienteTel;
     @FXML
     private TableView<Cliente> tbViewCliente;
+    @FXML
+    private TableColumn<Cliente, String> tbColumnNome;
+    @FXML
+    private TableColumn<Cliente, String> tbColumnEmail;
+    @FXML
+    private TableColumn<Cliente, String> tbColumnTel;
 
     private VeiculoDao veiculoDao;
 
-    public PrimaryController() {
+    public PrimaryController() throws IOException {
         try {
             veiculoDao = new VeiculoDao();
         } catch (SQLException e) {
@@ -47,14 +60,13 @@ public class PrimaryController {
         }
     }
 
-    public void salvar() {
+    public void salvar() throws IOException {
         try {
             veiculoDao.inserir(carregaVeiculo());
+            alertaInfo("Veículo cadastrado com sucesso!");
         } catch (SQLException e) {
             alertaErro("Erro de SQL: " + e.getMessage());
         }
-
-        alertaInfo("Veículo cadastrado com sucesso!");
 
         limpaTxtField();
     }
@@ -67,6 +79,14 @@ public class PrimaryController {
         String placa = txtFieldPlaca.getText();
 
         return new Veiculo(marca, modelo, ano, preco, placa);
+    }
+
+    private Cliente carregaCliente() {
+        String nome = txtFieldClienteNome.getText();
+        String email = txtFieldClienteEmail.getText();
+        String tel = txtFieldClienteTel.getText();
+
+        return new Cliente(nome, email, tel);
     }
 
     public void limpaTxtField() {
@@ -89,7 +109,7 @@ public class PrimaryController {
         alerta.show();
     }
 
-    public void ordenarPorPreco() {
+    public void ordenarPorPreco() throws IOException {
         List<Veiculo> listaVeiculos;
 
         try {
@@ -102,7 +122,7 @@ public class PrimaryController {
         }
     }
 
-    public void ordenarPorAno() {
+    public void ordenarPorAno() throws IOException {
         List<Veiculo> listaVeiculos;
 
         try {
@@ -115,7 +135,7 @@ public class PrimaryController {
         }
     }
 
-    public void mostrarTodos() {
+    public void mostrarTodos() throws IOException {
         List<Veiculo> listaVeiculos;
         
         try {
@@ -127,7 +147,7 @@ public class PrimaryController {
         }
     }
 
-    public void filtraPorMarca(String marca) {
+    public void filtraPorMarca(String marca) throws IOException {
         List<Veiculo> listaVeiculos;
         
         try {
@@ -137,5 +157,27 @@ public class PrimaryController {
         } catch (SQLException e) {
             alertaErro("Erro de SQL " + e.getMessage());
         }
+    }
+
+    public void salvarCliente() throws IOException {
+        try {
+            Cliente cliente = carregaCliente();
+            new ClienteDao().inserir(cliente);
+
+            tbViewCliente.getItems().add(cliente);
+            alertaInfo("Cliente cadastrado com sucesso!");
+        } catch (SQLException e) {
+            alertaErro("Erro ao cadastrar cliente. " + e.getMessage());
+        } catch (IOException e) {
+            alertaErro("Erro ao carregar propriedades. Verifique os dados em application.properties. " + e.getMessage());
+        }
+
+    }
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        tbColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        tbColumnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        tbColumnTel.setCellValueFactory(new PropertyValueFactory<>("tel"));
     }
 }

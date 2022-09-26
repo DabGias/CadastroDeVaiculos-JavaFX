@@ -4,5 +4,6 @@ module br.com.fiap {
     requires java.sql;
 
     opens br.com.fiap.controller to javafx.fxml;
+    opens br.com.fiap.model to javafx.base;
     exports br.com.fiap;
 }
